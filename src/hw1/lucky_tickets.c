@@ -1,10 +1,9 @@
 #include <stdio.h>
 
 int main() {
-    // Создаем массив для подсчета количества трехзначных чисел с каждой суммой цифр
-    int count[28] = {0}; // суммы от 0 до 27
-    
-    // Подсчитываем сколько трехзначных чисел имеют каждую возможную сумму цифр
+
+    int count[28] = {0}; 
+
     for (int num = 0; num < 1000; num++) {
         int sum = (num / 100) + ((num / 10) % 10) + (num % 10);
         count[sum]++;
@@ -19,10 +18,9 @@ int main() {
         return 1;
     }
     
-    // Количество билетов с заданной суммой в первой тройке цифр
     int tickets_with_sum = count[target_sum];
     
-    // Для счастливых билетов вторая тройка цифр должна иметь такую же сумму
+    
     int lucky_tickets = count[target_sum] * count[target_sum];
     
     printf("Счастливых билетов с суммой %d: %d\n", target_sum, lucky_tickets);
