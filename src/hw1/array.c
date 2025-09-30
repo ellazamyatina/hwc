@@ -1,51 +1,58 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-static void reverse(int* arr, int start, int end) {
-    while (start < end) {
-        int temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
-        start++;
-        end--;
-    }
-}
-
-static void swapSegments(int* arr, int m, int n) {
-    int total = m + n;
-    reverse(arr, 0, total - 1);
-    reverse(arr, 0, n - 1);
-    reverse(arr, n, total - 1);
-}
 
 int main() {
-    int m, n;
-    
-    printf("Enter m and n: ");
+    int arr[100];     
+    int m = 0;        
+    int n = 0;        
+    int i = 0;        
+    int tempVar = 0;    
+
+    printf("Введите m и n: ");
     scanf("%d %d", &m, &n);
     
-    int total = m + n;
-    int* arr = malloc(total * sizeof(int));
-    
-    printf("Enter %d numbers: ", total);
-    for (int i = 0; i < total; i++) {
+    printf("Введите %d элементов массива: ", m + n);
+    for(i = 0; i < m + n; i++) {
         scanf("%d", &arr[i]);
     }
     
-    printf("Before: ");
-    for (int i = 0; i < total; i++) {
+    printf("Исходный массив: ");
+    for(i = 0; i < m + n; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
     
-    swapSegments(arr, m, n);
+    for(i = 0; i < m && i < n; i++) {
+        tempVar = arr[i];
+        arr[i] = arr[m + i];
+        arr[m + i] = tempVar;
+    }
     
-    printf("After:  ");
-    for (int i = 0; i < total; i++) {
+    if(m > n) {
+        for(i = n; i < m; i++) {
+            tempVar = arr[i];
+
+            for(int j = i; j < m + n - 1; j++) {
+                arr[j] = arr[j + 1];
+            }
+            arr[m + n - 1] = tempVar;
+        }
+    } else if(n > m) {
+
+        for(i = m + n - 1; i >= 2 * m; i--) {
+            tempVar = arr[i];
+
+            for(int j = i; j > m; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[m] = tempVar;
+        }
+    }
+    
+    printf("После обмена: ");
+    for(i = 0; i < m + n; i++) {
         printf("%d ", arr[i]);
     }
     printf("\n");
     
-    free(arr);
     return 0;
 }
