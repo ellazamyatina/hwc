@@ -1,65 +1,75 @@
-#include "stack.c"
+#include "stack.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 bool checkBrackets(int counter, char *stringWithBrackets) {
   if (counter == 0) {
-    return false;
+    return true;
   }
+
   struct Stack stack = newStack();
-  char tmp = ' ';
+
   for (int i = 0; i < counter; i++) {
-    tmp = stringWithBrackets[i];
-    if ((tmp == '(') || (tmp == '{') || (tmp == '[')) {
-      push(&stack, tmp);
-    } else if ((tmp == ')' || tmp == '}' || tmp == ']') &&
-               (stack.head != NULL)) {
-      char previousBracket = pop(&stack);
-      if ((previousBracket + 1 == tmp) || (previousBracket + 2 == tmp)) {
-        continue;
-      } else {
+    char current = stringWithBrackets[i];
+    if (current == '(' || current == '{' || current == '[') {
+      push(&stack, (int)current);
+    } else if (current == ')' || current == '}' || current == ']') {
+      if (stack.head == NULL) {
         deleteStack(&stack);
         return false;
       }
-    } else if ((tmp == ')' || tmp == '}' || tmp == ']') &&
-               (stack.head == NULL)) {
-      deleteStack(&stack);
-      return false;
+
+      int last = pop(&stack);
+
+      if ((current == ')' && last != '(') || (current == '}' && last != '{') ||
+          (current == ']' && last != '[')) {
+        deleteStack(&stack);
+        return false;
+      }
     }
   }
-  if ((stack.head) == NULL) {
-    deleteStack(&stack);
-    return true;
-  }
+
+  bool result = (stack.head == NULL);
   deleteStack(&stack);
-  return false;
+  return result;
 }
 
 int main() {
   int len = 0;
   printf("Введите количество символов: \n");
   scanf("%d", &len);
+
+  if (len <= 0) {
+    printf("Некорректная длина\n");
+    return 1;
+  }
+
   printf("Введите строку: \n");
   getchar();
-  char *stringWithBrackets = malloc(len * sizeof(char));
+
+  char *stringWithBrackets = malloc((len + 1) * sizeof(char));
+
   int counter = 0;
   for (int i = 0; i < len; i++) {
     char tmp = ' ';
     scanf("%c", &tmp);
-
-    if ((tmp == 40) || (tmp == 41) || (tmp == 91) || (tmp == 93) ||
-        (tmp == 123) || (tmp == 125)) {
+    if (tmp == '(' || tmp == ')' || tmp == '[' || tmp == ']' || tmp == '{' ||
+        tmp == '}') {
       stringWithBrackets[counter] = tmp;
       ++counter;
     }
   }
+
+  stringWithBrackets[counter] = '\0';
+
   bool isCorrect = checkBrackets(counter, stringWithBrackets);
   if (isCorrect) {
-    printf("Балалс скобок соблюден\n");
+    printf("Баланс скобок соблюден\n");
   } else {
     printf("Баланс скобок НЕ соблюден\n");
   }
+
   free(stringWithBrackets);
   return 0;
 }
