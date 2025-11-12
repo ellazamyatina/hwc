@@ -14,6 +14,9 @@ void push(struct Stack *stack, int value) {
 }
 
 int pop(struct Stack *stack) {
+  if (stack->head == NULL) {
+    return -1;
+  }
   struct StackNode *oldNode = stack->head;
   int res = oldNode->value;
   stack->head = oldNode->next;
@@ -22,9 +25,10 @@ int pop(struct Stack *stack) {
 }
 
 int peek(struct Stack *stack) {
-  struct StackNode *headNode = stack->head;
-  int res = headNode->value;
-  return res;
+  if (stack->head == NULL) {
+    return -1;
+  }
+  return stack->head->value;
 }
 
 void deleteStack(struct Stack *stack) {
