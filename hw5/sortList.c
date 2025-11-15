@@ -1,90 +1,92 @@
+#include "sortList.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-  int data;
-  struct Node *next;
-} Node;
-
-Node *addValue(Node *head, int value) {
+Node *createNode(int value) {
   Node *newNode = (Node *)malloc(sizeof(Node));
+  if (newNode == NULL) {
+    printf("Ошибка выделения памяти!\n");
+    return NULL;
+  }
   newNode->data = value;
+  newNode->next = NULL;
+  return newNode;
+}
 
-  if (head == NULL || value < head->data) {
-    newNode->next = head;
-    return newNode;
+void insertSorted(Node **head, int value) {
+  Node *newNode = createNode(value);
+  if (newNode == NULL)
+    return;
+
+  if (*head == NULL || value < (*head)->data) {
+    newNode->next = *head;
+    *head = newNode;
+    return;
   }
 
-  Node *current = head;
+  Node *current = *head;
   while (current->next != NULL && current->next->data < value) {
     current = current->next;
   }
 
   newNode->next = current->next;
   current->next = newNode;
-  return head;
 }
 
-Node *removeValue(Node *head, int value) {
-  if (head == NULL)
-    return NULL;
+void deleteValue(Node **head, int value) {
+  if (*head == NULL) {
+    printf("Список пуст!\n");
+    return;
+  }
 
-  if (head->data == value) {
-    Node *temp = head;
-    head = head->next;
+  Node *temp = *head;
+  Node *prev = NULL;
+
+  if (temp != NULL && temp->data == value) {
+    *head = temp->next;
     free(temp);
-    return head;
+    printf("Значение %d удалено из списка.\n", value);
+    return;
   }
 
-  Node *current = head;
-  while (current->next != NULL && current->next->data != value) {
-    current = current->next;
+  while (temp != NULL && temp->data != value) {
+    prev = temp;
+    temp = temp->next;
   }
 
-  if (current->next != NULL) {
-    Node *temp = current->next;
-    current->next = temp->next;
-    free(temp);
+  if (temp == NULL) {
+    printf("Значение %d не найдено в списке!\n", value);
+    return;
   }
 
-  return head;
+  prev->next = temp->next;
+  free(temp);
+  printf("Значение %d удалено из списка.\n", value);
 }
 
 void printList(Node *head) {
-  while (head != NULL) {
-    printf("%d ", head->data);
-    head = head->next;
+  if (head == NULL) {
+    printf("Список пуст!\n");
+    return;
+  }
+
+  printf("Текущий список: ");
+  Node *current = head;
+  while (current != NULL) {
+    printf("%d", current->data);
+    if (current->next != NULL) {
+      printf(" -> ");
+    }
+    current = current->next;
   }
   printf("\n");
 }
 
-int main() {
-  Node *head = NULL;
-  int choice, value;
-
-  printf("0-выход 1-добавить 2-удалить 3-печать\n");
-
-  while (1) {
-    printf("> ");
-    scanf("%d", &choice);
-
-    if (choice == 0)
-      break;
-
-    switch (choice) {
-    case 1:
-      scanf("%d", &value);
-      head = addValue(head, value);
-      break;
-    case 2:
-      scanf("%d", &value);
-      head = removeValue(head, value);
-      break;
-    case 3:
-      printList(head);
-      break;
-    }
+void freeList(Node *head) {
+  Node *temp;
+  while (head != NULL) {
+    temp = head;
+    head = head->next;
+    free(temp);
   }
-
-  return 0;
 }
