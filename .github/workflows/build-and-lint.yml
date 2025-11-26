@@ -17,8 +17,9 @@ jobs:
           # -DCMAKE_EXPORT_COMPILE_COMMANDS=ON is important for clang-tidy
           cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
       - name: Build
-        run: |
+        run: 
           cmake --build build
       - name: Lint
         run: |
+          ls -la build/compile_commands.json || echo "File not found!"
           run-clang-tidy-18 -p=build
