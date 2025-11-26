@@ -21,5 +21,4 @@ jobs:
           cmake --build build
       - name: Lint
         run: |
-          ls -la build/compile_commands.json || echo "File not found!"
-          run-clang-tidy-18 -p=build
+          find . -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | xargs clang-tidy-18 -p=build
