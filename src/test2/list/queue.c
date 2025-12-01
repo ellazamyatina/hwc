@@ -108,7 +108,7 @@ FunctionalQueue *enqueue(FunctionalQueue *queue, int value) {
 
 FunctionalQueue *dequeue(FunctionalQueue *queue) {
   if (queue == NULL || isEmptyQueue(queue)) {
-    return createQueue(); // Возвращаем новую пустую очередь
+    return createQueue();
   }
 
   FunctionalQueue *newQueue = copyQueue(queue);
@@ -136,7 +136,7 @@ int peek(FunctionalQueue *queue) {
   }
 
   if (isEmptyList(queue->front)) {
-    normalize((FunctionalQueue *)queue); // Небезопасно, но для чтения ок
+    normalize((FunctionalQueue *)queue); 
   }
 
   if (!isEmptyList(queue->front)) {
