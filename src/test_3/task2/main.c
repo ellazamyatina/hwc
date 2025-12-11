@@ -8,7 +8,7 @@ int main(void) {
   if (scanf("%99s", s) != 1)
     return 1;
 
-  makeMinNmber(s);
+  makeMinNumber(s);
 
   printf("Наименьшее число: %s\n", s);
   return 0;
