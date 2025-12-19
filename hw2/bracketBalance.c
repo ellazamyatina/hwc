@@ -4,13 +4,11 @@
 int main() {
   char input[1000] = "\0";
   int balance = 0;
-  int i = 0;
-
   printf("Введите строку для проверки баланса скобок: ");
   fgets(input, sizeof(input), stdin);
   input[strlen(input) - 1] = '\0';
 
-  for (i = 0; input[i] != '\0'; i++) {
+  for (int i = 0; input[i] != '\0'; i++) {
     if (input[i] == '(') {
       balance++;
     } else if (input[i] == ')') {
