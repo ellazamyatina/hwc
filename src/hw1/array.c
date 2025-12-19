@@ -1,58 +1,48 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-    int arr[100];     
-    int m = 0;        
-    int n = 0;        
-    int i = 0;        
-    int tempVar = 0;    
+void swopPartsOfArray(int* array, int left, int right)
+{
+    while (left < right) {
+        int temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
+        ++left;
+        --right;
+    }
+}
+
+int main()
+{
+    int m = 0;
+    int n = 0;
 
     printf("Введите m и n: ");
     scanf("%d %d", &m, &n);
-    
-    printf("Введите %d элементов массива: ", m + n);
-    for(i = 0; i < m + n; i++) {
-        scanf("%d", &arr[i]);
+
+    int len = n + m;
+    int* array = malloc(len * sizeof(int));
+
+    printf("Введите %d элементов массива: ", len);
+    for (int i = 0; i < len; i++) {
+        scanf("%d", &array[i]);
     }
-    
+
     printf("Исходный массив: ");
-    for(i = 0; i < m + n; i++) {
-        printf("%d ", arr[i]);
+    for (int i = 0; i < m + n; i++) {
+        printf("%d ", array[i]);
     }
     printf("\n");
-    
-    for(i = 0; i < m && i < n; i++) {
-        tempVar = arr[i];
-        arr[i] = arr[m + i];
-        arr[m + i] = tempVar;
-    }
-    
-    if(m > n) {
-        for(i = n; i < m; i++) {
-            tempVar = arr[i];
 
-            for(int j = i; j < m + n - 1; j++) {
-                arr[j] = arr[j + 1];
-            }
-            arr[m + n - 1] = tempVar;
-        }
-    } else if(n > m) {
+    swopPartsOfArray(array, 0, m - 1);
+    swopPartsOfArray(array, m, m + n - 1);
+    swopPartsOfArray(array, 0, m + n - 1);
 
-        for(i = m + n - 1; i >= 2 * m; i--) {
-            tempVar = arr[i];
-
-            for(int j = i; j > m; j--) {
-                arr[j] = arr[j - 1];
-            }
-            arr[m] = tempVar;
-        }
-    }
-    
     printf("После обмена: ");
-    for(i = 0; i < m + n; i++) {
-        printf("%d ", arr[i]);
+    for (int i = 0; i < len; i++) {
+        printf("%d ", array[i]);
     }
     printf("\n");
-    
+
     return 0;
 }
