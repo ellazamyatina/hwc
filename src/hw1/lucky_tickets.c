@@ -12,8 +12,6 @@ int main()
         int digit4 = (num / 100) % 10;
         int digit5 = (num / 10) % 10;
         int digit6 = num % 10;
-        int abc = 0;
-
         int sumOf1Part = digit1 + digit2 + digit3;
         int sumOf2Part = digit4 + digit5 + digit6;
 
