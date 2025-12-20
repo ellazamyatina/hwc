@@ -23,7 +23,7 @@ int main()
     }
     printf("\n");
 
-    int countOfMoved = bubbleSort(numbers, count) / 2;
+    int countOfMoved = bubbleSort(numbers, count) * 2;
 
     printf("Отсортированный массив: ");
     for (int i = 0; i < count; i++) {
