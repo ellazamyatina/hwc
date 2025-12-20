@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void swopPartsOfArray(int* array, int left, int right)
+void swapPartsOfArray(int* array, int left, int right)
 {
     while (left < right) {
         int temp = array[left];
@@ -34,15 +34,15 @@ int main()
     }
     printf("\n");
 
-    swopPartsOfArray(array, 0, m - 1);
-    swopPartsOfArray(array, m, m + n - 1);
-    swopPartsOfArray(array, 0, m + n - 1);
+    swapPartsOfArray(array, 0, m - 1);
+    swapPartsOfArray(array, m, m + n - 1);
+    swapPartsOfArray(array, 0, m + n - 1);
 
     printf("После обмена: ");
     for (int i = 0; i < len; i++) {
         printf("%d ", array[i]);
     }
     printf("\n");
-
+    free(array);
     return 0;
 }
