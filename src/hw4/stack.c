@@ -1,38 +1,48 @@
 #include "stack.h"
+#include <stdbool.h>
 #include <stdlib.h>
 
-struct Stack newStack(void) {
-  struct Stack stack = {.head = NULL};
-  return stack;
+struct Stack newStack(void)
+{
+    struct Stack stack = { .head = NULL };
+    return stack;
 }
 
-void push(struct Stack *stack, int value) {
-  struct StackNode *node = malloc(sizeof(struct StackNode));
-  node->value = value;
-  node->next = stack->head;
-  stack->head = node;
+bool push(struct Stack* stack, int value)
+{
+    struct StackNode* node = malloc(sizeof(struct StackNode));
+    if (node == NULL)
+        return false;
+    node->value = value;
+    node->next = stack->head;
+    stack->head = node;
+    return true;
 }
 
-int pop(struct Stack *stack) {
-  if (stack->head == NULL) {
-    return -1;
-  }
-  struct StackNode *oldNode = stack->head;
-  int res = oldNode->value;
-  stack->head = oldNode->next;
-  free(oldNode);
-  return res;
+bool pop(struct Stack* stack, int* value)
+{
+    if (stack->head == NULL)
+        return false;
+
+    struct StackNode* oldNode = stack->head;
+    *value = oldNode->value;
+    stack->head = oldNode->next;
+    free(oldNode);
+    return true;
 }
 
-int peek(struct Stack *stack) {
-  if (stack->head == NULL) {
-    return -1;
-  }
-  return stack->head->value;
+bool peek(struct Stack* stack, int* value)
+{
+    if (stack->head == NULL)
+        return false;
+    *value = stack->head->value;
+    return true;
 }
 
-void deleteStack(struct Stack *stack) {
-  while (stack->head != NULL) {
-    pop(stack);
-  }
+void deleteStack(struct Stack* stack)
+{
+    int temp = 0;
+    while (stack->head != NULL) {
+        pop(stack, &temp);
+    }
 }
