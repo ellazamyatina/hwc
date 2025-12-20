@@ -1,6 +1,5 @@
+#include "sorting.h"
 #include <stdio.h>
-
-extern int sortArray(int *array, int size);
 
 int main() {
   int numbers[100];
@@ -23,7 +22,7 @@ int main() {
   }
   printf("\n");
 
-  int movedCount = sortArray(numbers, count);
+  int countOfMoved = bubbleSort(numbers, count) / 2;
 
   printf("Отсортированный массив: ");
   for (int i = 0; i < count; i++) {
@@ -31,10 +30,8 @@ int main() {
   }
   printf("\n");
 
-  int moved2 = movedCount / 2;
-
-  printf("Количество перемещенных элементов: %d\n", moved2);
+  printf("Количество перемещенных элементов: %d\n", countOfMoved);
   printf("Количество элементов, участвовавших в сортировке: %d\n", count);
 
-  return movedCount;
+  return countOfMoved;
 }
