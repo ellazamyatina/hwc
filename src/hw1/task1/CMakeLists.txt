@@ -1,0 +1,1 @@
+add_executable(2_multiplications 2_multiplications.c)
