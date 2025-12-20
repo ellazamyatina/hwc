@@ -17,11 +17,13 @@ Stack newStack(void);
 // function adding new elem in the stack
 bool push(Stack* stack, int value);
 
-// function removes value on top of the stack and returns it
-bool pop(Stack* stack);
+// function returs true if we can pop, else false, result of operation located
+// in the pointer
+bool pop(Stack* stack, int* value);
 
-// function peek returns value on top of the stack without removing it
-bool peek(Stack* stack);
+// function returns true if we can peek, else false, result of operation located
+// in the pointer
+bool peek(Stack* stack, int* value);
 
 // function of deleting the stack(freeing memory)
 void deleteStack(Stack* stack);
