@@ -10,9 +10,10 @@ void printMenu() {
   printf("Выберите операцию: ");
 }
 
-int main() {
+int main(void) {
   Node *head = NULL;
-  int choice, value;
+  int choice = -1;
+  int value = -1;
 
   printf("Программа для работы с сортированным списком\n");
 
