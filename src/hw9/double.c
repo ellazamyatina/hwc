@@ -12,7 +12,7 @@ void analyzeDouble(double number) {
   du.value = number;
   uint64_t bits = du.bits;
 
-  int sign = (bits >> 63) & 1;
+  bool isNegative = (bits >> 63) == 1;
   int exponent = (bits >> 52) & 0x7FF;
   uint64_t mantissa = bits & 0xFFFFFFFFFFFFF;
 
