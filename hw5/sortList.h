@@ -1,5 +1,4 @@
-#ifndef SORT_LIST_H
-#define SORT_LIST_H
+#pragma once
 
 typedef struct Node {
   int data;
@@ -13,5 +12,3 @@ void insertSorted(Node **head, int value);
 void deleteValue(Node **head, int value);
 void printList(Node *head);
 void freeList(Node *head);
-
-#endif
