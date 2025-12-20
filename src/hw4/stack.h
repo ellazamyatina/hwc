@@ -25,5 +25,8 @@ bool pop(Stack* stack, int* value);
 // in the pointer
 bool peek(Stack* stack, int* value);
 
+// function checking if stack is empty, returns true or false
+bool isEmpty(const Stack* stack);
+
 // function of deleting the stack(freeing memory)
 void deleteStack(Stack* stack);

@@ -39,6 +39,8 @@ bool peek(Stack* stack, int* value)
     return true;
 }
 
+bool isEmpty(const Stack* stack) { return stack->head == NULL; }
+
 void deleteStack(Stack* stack)
 {
     int temp = 0;
