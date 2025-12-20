@@ -1,26 +1,26 @@
 #pragma once
 // structure of simple elem in stack
-struct StackNode {
-  int value;
-  struct StackNode *next;
-};
+typedef struct StackNode {
+    int value;
+    struct StackNode* next;
+} StackNode;
 
 // create stack
-struct Stack {
-  struct StackNode *head;
-};
+typedef struct Stack {
+    struct StackNode* head;
+} Stack;
 
 // function of creating new stack
-struct Stack newStack(void);
+Stack newStack(void);
 
 // function adding new elem in the stack
-void push(struct Stack *stack, int value);
+bool push(Stack* stack, int value);
 
 // function bring elem from the stack
-int pop(struct Stack *stack);
+bool pop(Stack* stack);
 
-// function "peek" accepts pointer on the last elem of the stack
-int peek(struct Stack *stack);
+// function peek returns value on top of the stack without removing it
+bool peek(Stack* stack);
 
 // function of deleting the stack(freeing memory)
-void deleteStack(struct Stack *stack);
+void deleteStack(Stack* stack);
