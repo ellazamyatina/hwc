@@ -1,26 +1,22 @@
 #include <stdio.h>
 
-int main()
+int countOfLuckyTickets()
 {
+    int sum[28] = { 0 }; // max sum of 3 digits is 27
     int count = 0;
 
-    for (int num = 0; num <= 999999; num++) {
+    for (int i = 0; i < 10; i++)
+        for (int j = 0; j < 10; j++)
+            for (int k = 0; k < 10; k++)
+                sum[i + j + k]++;
 
-        int digit1 = num / 100000;
-        int digit2 = (num / 10000) % 10;
-        int digit3 = (num / 1000) % 10;
-        int digit4 = (num / 100) % 10;
-        int digit5 = (num / 10) % 10;
-        int digit6 = num % 10;
-        int sumOf1Part = digit1 + digit2 + digit3;
-        int sumOf2Part = digit4 + digit5 + digit6;
+    for (int i = 0; i < 28; i++)
+        count += sum[i] * sum[i];
 
-        if (sumOf1Part == sumOf2Part) {
-            count++;
-        }
-    }
+    return count;
+}
 
-    printf("Количество счастливых билетов: %d\n", count);
-
-    return 0;
+int main()
+{
+    printf("Количество счастливых билетиков:  %d\n", countOfLuckyTickets());
 }
