@@ -16,7 +16,7 @@ Stack newStack(void);
 // function adding new elem in the stack
 bool push(Stack* stack, int value);
 
-// function bring elem from the stack
+// function removes value on top of the stack and returns it
 bool pop(Stack* stack);
 
 // function peek returns value on top of the stack without removing it
