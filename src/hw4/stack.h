@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 // structure of simple elem in stack
 typedef struct StackNode {
     int value;
