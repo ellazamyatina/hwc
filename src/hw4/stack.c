@@ -2,15 +2,15 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-struct Stack newStack(void)
+Stack newStack(void)
 {
-    struct Stack stack = { .head = NULL };
+    Stack stack = { .head = NULL };
     return stack;
 }
 
-bool push(struct Stack* stack, int value)
+bool push(Stack* stack, int value)
 {
-    struct StackNode* node = malloc(sizeof(struct StackNode));
+    StackNode* node = malloc(sizeof(StackNode));
     if (node == NULL)
         return false;
     node->value = value;
@@ -19,19 +19,19 @@ bool push(struct Stack* stack, int value)
     return true;
 }
 
-bool pop(struct Stack* stack, int* value)
+bool pop(Stack* stack, int* value)
 {
     if (stack->head == NULL)
         return false;
 
-    struct StackNode* oldNode = stack->head;
+    StackNode* oldNode = stack->head;
     *value = oldNode->value;
     stack->head = oldNode->next;
     free(oldNode);
     return true;
 }
 
-bool peek(struct Stack* stack, int* value)
+bool peek(Stack* stack, int* value)
 {
     if (stack->head == NULL)
         return false;
@@ -39,7 +39,7 @@ bool peek(struct Stack* stack, int* value)
     return true;
 }
 
-void deleteStack(struct Stack* stack)
+void deleteStack(Stack* stack)
 {
     int temp = 0;
     while (stack->head != NULL) {
