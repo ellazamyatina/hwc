@@ -2,53 +2,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printMenu() {
-  printf("0 - Выйти\n");
-  printf("1 - Добавить значение в сортированный список\n");
-  printf("2 - Удалить значение из списка\n");
-  printf("3 - Распечатать список\n");
-  printf("Выберите операцию: ");
+void printMenu()
+{
+    printf("0 - Выйти\n");
+    printf("1 - Добавить значение в сортированный список\n");
+    printf("2 - Удалить значение из списка\n");
+    printf("3 - Распечатать список\n");
+    printf("Выберите операцию: ");
 }
 
-int main() {
-  Node *head = NULL;
-  int choice, value;
+int main()
+{
+    Node* head = NULL;
+    int choice, value;
 
-  printf("Программа для работы с сортированным списком\n");
+    printf("Программа для работы с сортированным списком\n");
 
-  do {
-    printMenu();
-    scanf("%d", &choice);
+    do {
+        printMenu();
+        scanf("%d", &choice);
 
-    switch (choice) {
-    case 0:
-      printf("Выход из программы...\n");
-      break;
+        switch (choice) {
+        case 0:
+            printf("Выход из программы...\n");
+            break;
 
-    case 1:
-      printf("Введите значение для добавления: ");
-      scanf("%d", &value);
-      insertSorted(&head, value);
-      printf("Значение %d добавлено в список.\n", value);
-      break;
+        case 1:
+            printf("Введите значение для добавления: ");
+            scanf("%d", &value);
+            insertSorted(&head, value);
+            printf("Значение %d добавлено в список.\n", value);
+            break;
 
-    case 2:
-      printf("Введите значение для удаления: ");
-      scanf("%d", &value);
-      deleteValue(&head, value);
-      break;
+        case 2:
+            printf("Введите значение для удаления: ");
+            scanf("%d", &value);
+            deleteValue(&head, value);
+            break;
 
-    case 3:
-      printList(head);
-      break;
+        case 3:
+            printList(head);
+            break;
 
-    default:
-      printf("Неверный выбор! Попробуйте снова.\n");
-      break;
-    }
-  } while (choice != 0);
+        default:
+            printf("Неверный выбор! Попробуйте снова.\n");
+            break;
+        }
+    } while (choice != 0);
 
-  freeList(head);
+    freeList(head);
 
-  return 0;
+    return 0;
 }
