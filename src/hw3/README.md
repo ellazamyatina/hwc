@@ -8,12 +8,12 @@ sorting.h - библиотека
 
 С использованием уже готового ассемблерного кода:
 
-gcc -o3 -Wall -Wextra -pedantic -o sort mainProgram.c sorting.s
+gcc -O3 -Wall -Wextra -pedantic -o sort mainProgram.c sorting.s
 ./sort
 
 Для генерации кода ассемблера из С-шника + запуск приложения:
 
-gcc -o3 -Wall -Wextra -pedantic -S sorting.c -o sorting.s
-gcc -o3 -Wall -Wextra -pedantic -o sort mainProgram.c sorting.s
+gcc -O3 -Wall -Wextra -pedantic -S sorting.c -o sorting.s
+gcc -O3 -Wall -Wextra -pedantic -o sort mainProgram.c sorting.s
 ./sort
 
