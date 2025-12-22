@@ -6,7 +6,7 @@
 
 void test_insertSorted(Node** head, int value)
 {
-    Node* newNode = createNode(value);
+    Node* newNode;
     if (newNode == NULL)
         return;
 
