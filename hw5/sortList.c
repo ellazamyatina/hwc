@@ -2,11 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node* createNode(int value)
+Node* createNode(int value, ErrorCode* error)
 {
     Node* newNode = (Node*)malloc(sizeof(Node));
     if (newNode == NULL) {
-        printf("Ошибка выделения памяти!\n");
+        if (error != NULL) {
+            *error = error_memory;
+        }
         return NULL;
     }
     newNode->data = value;
@@ -14,16 +16,17 @@ Node* createNode(int value)
     return newNode;
 }
 
-void insertSorted(Node** head, int value)
+ErrorCode insertSorted(Node** head, int value)
 {
-    Node* newNode = createNode(value);
+    ErrorCode error;
+    Node* newNode = createNode(value, &error);
     if (newNode == NULL)
-        return;
+        return error_memory;
 
     if (*head == NULL || value < (*head)->data) {
         newNode->next = *head;
         *head = newNode;
-        return;
+        return ok;
     }
 
     Node* current = *head;
@@ -33,24 +36,17 @@ void insertSorted(Node** head, int value)
 
     newNode->next = current->next;
     current->next = newNode;
+    return ok;
 }
 
-void deleteValue(Node** head, int value)
+ErrorCode deleteValue(Node** head, int value)
 {
     if (*head == NULL) {
-        printf("Список пуст!\n");
-        return;
+        return error_empty;
     }
 
     Node* temp = *head;
     Node* prev = NULL;
-
-    if (temp != NULL && temp->data == value) {
-        *head = temp->next;
-        free(temp);
-        printf("Значение %d удалено из списка.\n", value);
-        return;
-    }
 
     while (temp != NULL && temp->data != value) {
         prev = temp;
@@ -58,13 +54,16 @@ void deleteValue(Node** head, int value)
     }
 
     if (temp == NULL) {
-        printf("Значение %d не найдено в списке!\n", value);
-        return;
+        return error_not_found;
+    }
+    if (prev == NULL) {
+        *head = temp->next;
+    } else {
+        prev->next = temp->next;
     }
 
-    prev->next = temp->next;
     free(temp);
-    printf("Значение %d удалено из списка.\n", value);
+    return ok;
 }
 
 void printList(Node* head)
@@ -88,7 +87,7 @@ void printList(Node* head)
 
 void freeList(Node* head)
 {
-    Node* temp;
+    Node* temp = NULL;
     while (head != NULL) {
         temp = head;
         head = head->next;
